@@ -1,2 +1,13 @@
 #include <iostream>
-cvxvxcxxc.x. xvxv
+#include <cmath>
+
+using namespace std;
+
+int main() {
+
+    cout << "Goodbye World";
+
+
+
+    return 0;
+}
