@@ -1,14 +1,44 @@
 #include <iostream>
-#include <cmath>
-
+#include <cstdlib>
+#include <ctime>
 using namespace std;
+void generateRandomNumbers(int arr[], int size) {
+    srand(time(0)); // Seed for random number generation
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % 6; // Generate random number between 0 and 99
+    }
+}
+
+
 
 int main() {
+	const int chartsize = 6;
+    int stamina = 5;
+    int board[chartsize][chartsize] = {{1,2,3,4,5,6},{7,8,9,10,11,12},{13,14,15,16,17,18},{1,2,3,4,5,6},{7,8,9,10,11,12},{13,14,15,16,17,18}};
+       const int size = 20;
+    int numbers[size];
 
-    cout << "Goodbye World";
+    generateRandomNumbers(numbers, size);
 
-
+    cout << "Random Numbers: ";
+    for (int i = 0; i < size; i++) {
+        cout << numbers[i] << " ";
+    }
+    cout << endl;
+    
+  for (int i = 0; i < size; i++){
+  	
+	  int temp = board[numbers[i]][numbers[i + 1]];
+  	board[numbers[i]][numbers[i + 1]] = board[numbers[i + 2]][numbers[i + 3]];
+  	board[numbers[i + 2]][numbers[i + 3]] = temp;
+  }
+  cout << endl;
+  for(int i = 0; i < 6; i++){
+  	for(int j = 0; j < 6; j++){
+  		cout << board[i][j] << " ";
+	  }
+	  cout << endl;
+  }
 
     return 0;
 }
-nm988j9j98jj8
