@@ -311,7 +311,7 @@ int main() {
 
     //printing_random_numbers(numbers, size);
 
-  for (int i = 0; i < size; i++){
+  for (int i = 0; i < size - 4; i++){
 	  int temp = board[numbers[i]][numbers[i + 1]];
   	board[numbers[i]][numbers[i + 1]] = board[numbers[i + 2]][numbers[i + 3]];
   	board[numbers[i + 2]][numbers[i + 3]] = temp;
