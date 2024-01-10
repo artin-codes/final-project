@@ -44,7 +44,7 @@ int score_calculator(int i1, int j1, int i2, int j2) {
 void text_commands(int n) {
     switch(n) {
         case 1:
-            cout << "Welcome to Memory game!" << endl;
+            cout << "         Welcome to Memory game" << endl;
             break;
     }
 }
@@ -77,9 +77,8 @@ void main_menu_printer() {
     cout << endl
          << "               Main Menu" << endl
          << "             1-Start game" << endl
-         << "                2-Help" << endl
-         << "              3-Settings" << endl
-         << "             4-Quit game" << endl;
+         << "              2-Credits" << endl
+         << "             3-Quit game" << endl;
 }
 
 bool error_check(int i, int j) {
@@ -123,11 +122,11 @@ void startgame(int board[][6]) {
         j2,
         x = 0,
         score = 0,
-        stamina = 5,
         awnser,
         i,
         j;
     int printer_arr[6][6];
+    float stamina = 5;
 
     for (i = 0; i <= 5; i++) {
         for (j = 0; j <= 5; j++)
@@ -138,7 +137,7 @@ void startgame(int board[][6]) {
     Sleep(10000);
     system ("CLS");
     while (1) {
-        cout << "Remaining Stamina = " << stamina << endl;
+        cout << "Remaining Stamina = " << stamina << "       Total Score = " << score << endl;
         while (1) {
             cout << "Please enter first numbers coordinates :" << endl;
             cin >> i1 >> j1;
@@ -150,7 +149,7 @@ void startgame(int board[][6]) {
             cout << endl << "Your first numbers are not valid, rethink your strategy soldier!";
             Sleep(1000);
             system ("CLS");
-            cout << "Remaining Stamina = " << stamina << endl;
+            cout << "Remaining Stamina = " << stamina << "       Total Score = " << score << endl;
         }
         cout << endl << "You have selected (" << i1 + 1 << "," << j1 + 1 << ")" << endl;
 
@@ -173,7 +172,7 @@ void startgame(int board[][6]) {
             cout << endl << "Your second numbers are not valid, rethink your strategy soldier!";
             Sleep(1000);
             system ("CLS");
-            cout << "Remaining Stamina = " << stamina << endl;
+            cout << "Remaining Stamina = " << stamina << "       Total Score = " << score << endl;
         }
         cout << endl << "You have selected (" << i2 + 1 << "," << j2 + 1 << ")" << endl;
 
@@ -182,7 +181,7 @@ void startgame(int board[][6]) {
 
         Sleep(1000);
         system ("CLS");
-        cout << "Remaining Stamina = " << stamina << endl;
+        cout << "Remaining Stamina = " << stamina << "       Total Score = " << score << endl;
 
         //are you sure start
 
@@ -199,9 +198,9 @@ void startgame(int board[][6]) {
             }
         }
         if (x == 1) {
-            stamina--;
-            if (stamina == 0) {
-                cout << "You Lost !" << endl
+            stamina -= 0.5;
+            if (stamina <= 0) {
+                cout << endl << "You Lost !" << endl
                      << "Total Score : " << score << endl
                      << "Returning to main menu in 5 seconds...";
                 printer_arr[i1][j1] = 0;
@@ -211,6 +210,7 @@ void startgame(int board[][6]) {
                 break;
             }
             x = 0;
+            Sleep(2000);
             system ("CLS");
             continue;
         }
@@ -218,7 +218,7 @@ void startgame(int board[][6]) {
         //are you sure end
 
         if (board[i1][j1] == board[i2][j2]) {
-            score += score_calculator(i1, i2, j1, j2);
+            score += score_calculator(i1, j1, i2, j2);
             cout << endl << "You guessed right !" << endl
                  << "Respect + " << score_calculator(i1, j1, i2, j2) << endl;
             board[i1][j1] = -1;
@@ -230,24 +230,25 @@ void startgame(int board[][6]) {
             stamina--;
             cout << endl << "You guessed Wrong Soldier !" << endl;
             cout << "First Choice = " << board[i1][j1] << endl
-                 << "Second Choice = " << board[i2][j2];
+                 << "Second Choice = " << board[i2][j2] << endl;
             printer_arr[i1][j1] = 0;
             printer_arr[i2][j2] = 0;
         }
-        if (stamina == 0) {
+        if (stamina <= 0) {
             cout << "You Lost !" << endl
                  << "Total Score : " << score << endl
-                 << "Returning to main menu in 5 seconds...";
-            Sleep(5000);
+                 << "Returning to main menu in 10 seconds...";
+            Sleep(10000);
             system ("CLS");
             break;
         }
         else if (is_won(board) == true) {
             cout << endl << "Congratulations, You have won the game !" << endl
                  << "Total Score : " << score << endl
-                 << "Returning to main menu in 5 seconds...";
-            Sleep(5000);
+                 << "Returning to main menu in 10 seconds...";
+            Sleep(10000);
             system ("CLS");
+            break;
         }
         else {
             Sleep(5000);
@@ -257,11 +258,12 @@ void startgame(int board[][6]) {
 
     }
 }
-void help() {
 
-}
-void settings() {
-
+void credits() {
+    cout << "               created by Kourosh Ebrahimi & Artin Hosseini" << endl
+         << "            for more informations about game read the word note" << endl;
+    system ("PAUSE");
+    system ("CLS");
 }
 
 void base_of_operations(int board[][6]) {
@@ -276,13 +278,9 @@ void base_of_operations(int board[][6]) {
                 break;
             case 2:
                 system ("CLS");
-                help();
+                credits();
                 break;
             case 3:
-                system ("CLS");
-                settings();
-                break;
-            case 4:
                 system ("CLS");
                 exit(0);
                 break;
@@ -303,7 +301,6 @@ void printing_random_numbers(int numbers[], int size) {
 int main() {
     const int size = 20;
     const int chartsize = 6;
-    int stamina = 5;
     int board[chartsize][chartsize] = {{1,2,3,4,5,6},{7,8,9,10,11,12},{13,14,15,16,17,18},{1,2,3,4,5,6},{7,8,9,10,11,12},{13,14,15,16,17,18}};
     int numbers[size];
 
